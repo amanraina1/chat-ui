@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat UI - Flipkart</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="left-side" class="left-side">
+        <div class="title">
+          <label for="search-input">Filter by Title / Order ID</label>
+          <input
+            id="search-input"
+            placeholder="Start typing to Search"
+            type="text"
+          />
+        </div>
+        <div id="chat" class="chat"></div>
+      </div>
+      <div class="right-side" id="right-side"></div>
+
+
+
+
+
+      <template id="template-left-card">
+        <div class="chat-ui" onclick="collapse(id)">
+          <div class="details">
+            <img src="./assets/neom-FXJf8y_cZA0-unsplash.jpg" />
+            <div class="product-details">
+              <h3></h3>
+              <h4></h4>
+              <p></p>
+            </div>
+          </div>
+          <div class="date">15/09/2021</div>
+        </div>
+        </div>
+      </template>
+      <template id="template-right-card">
+        <div class="heading">
+          <img src="./assets/neom-FXJf8y_cZA0-unsplash.jpg" alt="" />
+          <h2>Flipkart Support</h2>
+        </div>
+        <div id="texting" class="texting"></div>
+        <div id="footer" class="footer">
+          <input id="write-message" type="text" placeholder="Type a Message" />
+          <img id="send-message" onclick="updateMessages()" src="./assets/send.png" />
+        </div>
+      </template>
+    </div>
+    <script src="./index.js"></script>
+  </body>
+</html>
