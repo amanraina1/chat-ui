@@ -21,13 +21,11 @@ body {
   display: flex;
 }
 .container .left-side {
-  /* background-color: red; */
   overflow-y: scroll;
   width: 100%;
   height: 100%;
 }
 .container .left-side .title {
-  /* background-color: green; */
   padding: 10px 20px;
   width: 100%;
   height: 10%;
@@ -60,7 +58,6 @@ body {
   background-color: #f1f3f6;
 }
 .container .left-side .chat .chat-ui {
-  /* background-color: rgba(200, 200, 200, 0.398); */
   width: 100%;
   height: 14%;
   display: flex;
@@ -68,7 +65,6 @@ body {
   border-bottom: 1px solid grey;
 }
 .container .left-side .chat .date {
-  /* background-color: red; */
   padding: 20px;
 }
 .container .left-side .chat .details {
@@ -77,19 +73,15 @@ body {
   gap: 10px;
   display: flex;
   padding-left: 20px;
-  /* justify-content: center; */
   align-items: center;
-  /* background-color: aquamarine; */
 }
 .container .left-side .chat .details img {
-  /* background-color: red; */
   object-fit: contain;
   width: 50px;
   height: 50px;
   border-radius: 50%;
 }
 .container .left-side .chat .details .product-details {
-  /* background-color: red; */
   padding: 10px;
   display: flex;
   gap: 10px;
@@ -103,7 +95,6 @@ body {
   height: 100%;
   border-left: 1px solid rgba(147, 147, 147, 0.554);
   background-color: rgba(200, 200, 200, 0.398);
-  /* overflow-y: scroll; */
 }
 .container .right-side .heading {
   display: flex;
@@ -121,14 +112,15 @@ body {
   height: 50px;
   border-radius: 50%;
 }
+/* Important point to note : With flex-end property, scrollbar doesn't work */
 .container .right-side .texting {
   background-color: #f1f3f6;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  flex-direction: column-reverse;
+  /* justify-content: flex-end; */
   height: 82%;
-  overflow-y: scroll;
-  position: relative;
+  overflow: scroll;
+  position: relative; /* Important */
 }
 .container .right-side .texting #msg {
   position: absolute;
@@ -136,7 +128,6 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   font-weight: 700;
-  /* text-align: center; */
 }
 .container .right-side .texting #BOT {
   display: flex;
@@ -144,19 +135,27 @@ body {
   background-color: #ffffff;
   align-self: flex-start;
   margin: 10px;
-  width: 70%;
+  /* width: 70%; */
   box-shadow: 0rem 1rem 5rem hsla(0, 0%, 71%, 0.2);
-  /* border: 1px solid saddlebrown; */
 }
 
 .container .right-side .texting #BOT p {
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
-  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 10px;
   font-size: 1rem;
   font-weight: 550;
   background-color: #fff;
   border-bottom: 1px solid rgb(215, 215, 215);
+}
+.container .right-side .texting #BOT p span {
+  font-size: 12px;
+  display: block;
+  text-align: right;
+  color: gray;
 }
 .container .right-side .texting #BOT #optionText {
   border-bottom: 1px solid rgb(215, 215, 215);
@@ -172,23 +171,29 @@ body {
 }
 .container .right-side .texting #BOT #optionText #subText {
   color: rgb(133, 133, 133);
-  /* margin: 2px; */
 }
 .container .right-side .texting #USER {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 70%;
-  /* background-color: red; */
+  /* width: 70%; */
   align-self: flex-end;
   margin: 10px;
   color: #fff;
 }
 .container .right-side .texting #USER p {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
   background-color: #027cd5;
   align-self: flex-end;
   padding: 10px;
   border-radius: 10px;
+}
+.container .right-side .texting #USER p span {
+  font-size: 12px;
+  display: block;
+  text-align: right;
 }
 .container .right-side .footer {
   display: flex;
@@ -196,7 +201,6 @@ body {
   width: 100%;
   height: 8%;
   background-color: #fff;
-  /* position: relative; */
 }
 .container .right-side .footer input {
   width: 100%;
@@ -207,6 +211,7 @@ body {
   color: rgb(95, 95, 95);
 }
 .container .right-side .footer img {
+  cursor: pointer;
   width: 30px;
   height: 30px;
   margin-right: 10px;

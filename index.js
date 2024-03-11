@@ -14,13 +14,14 @@ input.addEventListener("keyup", (e) => {
       item.orderId.includes(e.target.value)
   );
   fullDetails(data);
+  console.log(e.target.value);
 });
 
 async function getData() {
   const res = await fetch(url);
   data = await res.json();
   fullDetails(data);
-  console.log(data);
+  // console.log(data);
 }
 
 function fullDetails(data) {
@@ -58,22 +59,32 @@ function fillDataInCard(chatClone, data) {
 }
 
 function collapse(id) {
+  //For collapsing and expanding the right side
+  const rightSide = document.getElementById("right-side");
+
   // To add bg color on the selcted product
+  let prevId = null;
   const selectedProduct = document.getElementById(id);
   const allProducts = document.querySelectorAll(".chat-ui");
   allProducts.forEach((allProduct) => {
     //To remove the bg color of prev selected product
     if (allProduct.classList[1] === "active") {
+      prevId = allProduct.id;
       allProduct.classList.remove("active");
     }
   });
-  selectedProduct.classList.add("active");
-
-  //For collapsing and expanding the right side
-  const rightSide = document.getElementById("right-side");
-  leftSide.style.width = "50%";
-  rightSide.style.width = "50%";
-  rightSide.style.display = "block";
+  if (prevId === id) {
+    if (leftSide.style.width === "50%") {
+      leftSide.style.width = "100%";
+      rightSide.style.display = "none";
+      selectedProduct.classList.remove("active");
+    }
+  } else {
+    leftSide.style.width = "50%";
+    rightSide.style.width = "50%";
+    rightSide.style.display = "block";
+    selectedProduct.classList.add("active");
+  }
 
   //Elements for the right side
   const product = data.find((detail) => detail.orderId === id);
@@ -90,6 +101,7 @@ function collapse(id) {
 }
 
 function fillMessages(element, product) {
+  // If no message is in the chat, then this this message will be displayed
   if (product.messageList.length === 0) {
     const noMessage = document.createElement("div");
     noMessage.id = "msg";
@@ -98,14 +110,23 @@ function fillMessages(element, product) {
     return;
   }
   product.messageList?.forEach((message) => {
+    const hours = new Date(message.timestamp).getHours();
+    const minutes = new Date(message.timestamp).getMinutes();
+    const ampm = hours >= 12 ? "pm" : "am";
+
     if (message.messageType === "text") {
-      let ele = document.createElement("div");
-      ele.id = message.sender;
+      // For text message
+      let div = document.createElement("div");
+      let span = document.createElement("span");
+      span.innerHTML = `${hours}:${minutes} ${ampm}`;
+      div.id = message.sender;
       let textMessage = document.createElement("p");
       textMessage.innerHTML = message.message;
-      ele.appendChild(textMessage);
-      element.appendChild(ele);
+      textMessage.appendChild(span);
+      div.appendChild(textMessage);
+      element.appendChild(div);
     } else {
+      // For optioned message
       let ele = document.createElement("div");
       ele.id = message.sender;
       let textMessage = document.createElement("p");
@@ -128,19 +149,27 @@ function fillMessages(element, product) {
         });
       }
     }
-    // console.log(message.options);
   });
 }
 
 function updateMessages() {
   const writeMessage = document.getElementById("write-message");
-  const userMessages = document.getElementById("USER");
-
+  const textElement = document.getElementById("texting");
+  const userMessages = document.createElement("div");
+  userMessages.id = "USER";
   if (writeMessage.value === "") return;
+
+  const removeMessage = document.getElementById("msg");
+  console.log(removeMessage);
+  if (removeMessage) {
+    removeMessage.remove();
+  }
 
   const paragraphElement = document.createElement("P");
   paragraphElement.innerHTML = writeMessage.value;
 
   userMessages.appendChild(paragraphElement);
+
+  textElement.insertBefore(userMessages, textElement.firstChild);
   writeMessage.value = "";
 }
